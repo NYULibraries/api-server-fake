@@ -16,7 +16,7 @@ const INDEX_FILE = 'index.json';
 let serverResponses;
 let serverResponsesIndex;
 let serverResponsesDirectory;
-let updateServerResponsesServerServerUrl;
+let updateServerResponsesServerUrl;
 
 const customFormat = printf( info => {
     const timestamp = timestampEST();
@@ -69,7 +69,7 @@ function getServerResponseFilePath( responseFile ) {
 
 async function getServerResponseFromLiveServer( queryString ) {
     try {
-        const request = updateServerResponsesServerServerUrl + queryString;
+        const request = updateServerResponsesServerUrl + queryString;
 
         const response = await axios.get( request );
 
@@ -156,11 +156,11 @@ function startServerFake( options ) {
     const port = options.port || DEFAULT_PORT;
 
     let handler;
-    if ( options.updateServerResponsesServerServerUrl  ) {
-        updateServerResponsesServerServerUrl = options.updateServerResponsesServerServerUrl;
+    if ( options.updateServerResponsesServerUrl  ) {
+        updateServerResponsesServerUrl = options.updateServerResponsesServerUrl;
 
         logger.info( 'Switching to update Server responses mode' );
-        logger.info( `Server server = ${ updateServerResponsesServerServerUrl }` );
+        logger.info( `Server server = ${ updateServerResponsesServerUrl }` );
 
         handler = updateServerResponsesHandler;
     } else {
