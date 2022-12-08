@@ -1,7 +1,7 @@
 {
-  "name": "server-fake",
+  "name": "api-server-fake",
   "version": "0.0.1",
-  "description": "Server Fake",
+  "description": "API Server Fake",
   "main": "index.js",
   "author": "da70",
   "dependencies": {
