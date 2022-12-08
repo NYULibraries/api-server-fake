@@ -9,8 +9,6 @@ const url       = require( 'url' );
 const { createLogger, format, transports } = require( 'winston' );
 const { combine, timestamp, label, printf } = format;
 
-const stringify = require( 'json-stable-stringify' );
-
 const DEFAULT_PORT = 3000;
 
 const INDEX_FILE = 'index.json';
@@ -62,7 +60,7 @@ function getServerResponseFilename( queryString ) {
         .update( queryString )
         .digest( 'hex' );
 
-    return `${ hash }.json`;
+    return `${ hash }`;
 }
 
 function getServerResponseFilePath( responseFile ) {
@@ -89,9 +87,7 @@ function getServerResponses() {
     Object.keys( index ).forEach( queryString => {
         const file = getServerResponseFilePath( index[ queryString ] );
 
-        const response = require( file );
-
-        data[ normalizeQueryString( queryString ) ] = response;
+        data[ queryString ] = fs.readFileSync( file, { encoding: 'utf8' } );
     } );
 
     return data;
@@ -106,9 +102,7 @@ function normalHandler( request, response ) {
         return;
     }
 
-    const normalizedQueryString = normalizeQueryString( queryString );
-
-    let serverResponse = serverResponses[ normalizedQueryString ];
+    let serverResponse = serverResponses[ queryString ];
 
     if ( ! serverResponse ) {
         const errorMessage = `Query string "${ queryString }" not found in index`;
@@ -120,14 +114,12 @@ function normalHandler( request, response ) {
         logger.error( errorMessage );
     }
 
-    const serverResponseString = stringify( serverResponse, { space: '    ' } );
-
     response.writeHead( 200, {
         "Access-Control-Allow-Origin" : "*",
         "Content-Type"                : "text/plain;charset=utf-8",
     } );
 
-    response.write( serverResponseString );
+    response.write( serverResponse );
 
     logger.info( `request = "${ queryString }` );
 
