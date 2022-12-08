@@ -6,7 +6,6 @@
   "author": "da70",
   "dependencies": {
     "axios": "^1.2.1",
-    "json-server": "^0.17.1",
     "json-stable-stringify": "^1.0.2",
     "minimist": "^1.2.7",
     "moment": "^2.29.4",
