@@ -46,7 +46,7 @@ function exitHandler( code ) {
     const timestamp = timestampEST();
 
     logger.info( `Exited with code ${ code } at ${ timestamp }` );
-};
+}
 
 function getLogfile( logdir ) {
     return path.join(
