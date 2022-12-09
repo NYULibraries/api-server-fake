@@ -215,16 +215,14 @@ async function updateServerResponsesHandler( request, response ) {
 
     const serverResponse = await getServerResponseFromLiveServer( normalizedQueryString );
 
-    const serverResponseString = stableStringify( serverResponse );
-
-    updateServerResponses( normalizedQueryString, serverResponseString );
+    updateServerResponses( normalizedQueryString, serverResponse );
 
     response.writeHead( 200, {
         "Access-Control-Allow-Origin" : "*",
         "Content-Type"                : "text/plain;charset=utf-8",
     } );
 
-    response.write( serverResponseString );
+    response.write( serverResponse );
     response.end();
 }
 
