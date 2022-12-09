@@ -107,11 +107,9 @@ function normalHandler( request, response ) {
     let serverResponse = serverResponses[ queryString ];
 
     if ( ! serverResponse ) {
-        const errorMessage = `Query string "${ queryString }" not found in index`;
+        const errorMessage = `Query string "${ queryString }" not found in API Server Fake index`;
 
-        serverResponse = {
-            error : errorMessage,
-        };
+        serverResponse = errorMessage;
 
         logger.error( errorMessage );
     }
