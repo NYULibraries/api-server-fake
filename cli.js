@@ -11,12 +11,15 @@ if ( serverResponsesDirectory ) {
 
 const port = argv.port || undefined;
 
+const normalizeQueryStringsInIndex = argv[ 'normalize-query-strings-in-index' ] || false;
+
 const verbose = argv.verbose || undefined;
 
 const updateServerResponsesServerUrl = argv[ 'update-responses-server-url' ] || undefined;
 
 serverFake.startServerFake(
     {
+        normalizeQueryStringsInIndex,
         serverResponsesDirectory,
         port,
         updateServerResponsesServerUrl,

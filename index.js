@@ -14,6 +14,7 @@ const DEFAULT_PORT = 3000;
 
 const INDEX_FILE = 'index.json';
 
+let normalizeQueryStringsInIndex;
 let serverResponses;
 let serverResponsesIndex;
 let serverResponsesDirectory;
@@ -162,6 +163,10 @@ function startServerFake( options ) {
         logger.info( `Server server = ${ updateServerResponsesServerUrl }` );
 
         handler = updateServerResponsesHandler;
+
+        if ( options.normalizeQueryStringsInIndex ) {
+            normalizeQueryStringsInIndex = true;
+        }
     } else {
         serverResponses = getServerResponses( serverResponsesIndex, serverResponsesDirectory );
 
@@ -205,17 +210,19 @@ function updateServerResponses( queryString, serverResponse ) {
 async function updateServerResponsesHandler( request, response ) {
     const requestUrl = url.parse( request.url );
 
-    const queryString = requestUrl.search;
+    let queryString = requestUrl.search;
 
     if ( ! queryString ) {
         return;
     }
 
-    const normalizedQueryString = normalizeQueryString( queryString );
+    if ( normalizeQueryStringsInIndex ) {
+        queryString = normalizeQueryString( queryString );
+    }
 
-    const serverResponse = await getServerResponseFromLiveServer( normalizedQueryString );
+    const serverResponse = await getServerResponseFromLiveServer( queryString );
 
-    updateServerResponses( normalizedQueryString, serverResponse );
+    updateServerResponses( queryString, serverResponse );
 
     response.writeHead( 200, {
         "Access-Control-Allow-Origin" : "*",
