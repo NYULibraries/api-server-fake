@@ -17,9 +17,9 @@ const updateServerResponsesServerUrl = argv[ 'update-responses-server-url' ] || 
 
 serverFake.startServerFake(
     {
-        serverResponsesDirectory       : serverResponsesDirectory,
+        serverResponsesDirectory,
         port,
-        updateServerResponsesServerUrl : updateServerResponsesServerUrl,
+        updateServerResponsesServerUrl,
         verbose,
     }
 );
