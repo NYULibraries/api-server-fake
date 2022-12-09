@@ -26,7 +26,7 @@ const customFormat = printf( info => {
     return `${ timestamp } [${ info.level }]: ${ info.message }`;
 } );
 
-const logdir = path.join( '/tmp', 'server-fake-logs/' );
+const logdir = path.join( '/tmp', 'api-server-fake-logs/' );
 
 if ( ! fs.existsSync( logdir ) ) {
     fs.mkdirSync( logdir );
