@@ -204,7 +204,7 @@ function updateServerResponses( queryString, serverResponse ) {
 
     fs.writeFileSync( serverResponsesIndex, stableStringify( index ) );
 
-    logger.info( `Updated Server response "${ queryString }" : ${ responseFilename }` );
+    logger.info( `Updated API server response "${ queryString }" : ${ responseFilename }` );
 }
 
 async function updateServerResponsesHandler( request, response ) {
