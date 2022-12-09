@@ -1,4 +1,3 @@
-const axios     = require( 'axios' );
 const crypto    = require( 'crypto' );
 const fs        = require( 'fs' );
 const http      = require( 'http' );
@@ -73,9 +72,9 @@ async function getServerResponseFromLiveServer( queryString ) {
     try {
         const request = updateServerResponsesServerUrl + queryString;
 
-        const response = await axios.get( request );
+        const response = await fetch( request );
 
-        return response.data;
+        return response.text();
     } catch( error ) {
         logger.error( error );
     }
