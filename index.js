@@ -9,6 +9,8 @@ const url       = require( 'url' );
 const { createLogger, format, transports } = require( 'winston' );
 const { combine, timestamp, label, printf } = format;
 
+const stringify = require( 'json-stable-stringify' );
+
 const DEFAULT_PORT = 3000;
 
 const INDEX_FILE = 'index.json';
